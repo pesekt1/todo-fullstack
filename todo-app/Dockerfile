@@ -1,35 +1,20 @@
 # Use the official Node.js 16 image as a parent image
-FROM node:16 AS build
+FROM node:16
 
-# Set the working directory inside the container
+# Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy the package.json and package-lock.json (or yarn.lock) files
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
-# If using yarn, copy yarn.lock as well
-# COPY yarn.lock ./
 
-# Install dependencies
+# Install the application dependencies
 RUN npm install
-# For yarn, use:
-# RUN yarn install
 
-# Copy the rest of your application's code
+# Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the application for production
-RUN npm run build
-# For yarn, use:
-# RUN yarn build
+# Expose port 3000 for the application
+EXPOSE 3000
 
-# Use nginx to serve the static files
-FROM nginx:stable-alpine
-
-# Copy the build output to replace the default nginx contents.
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expose port 5001 to the outside once the container has launched
-EXPOSE 5001
-
-# Define the command to run your app using CMD which defines your runtime
-CMD ["nginx", "-g", "daemon off;"]
+# Define the command to run the application
+CMD ["npm", "run", "dev"]

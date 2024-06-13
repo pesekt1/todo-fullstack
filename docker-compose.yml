@@ -23,9 +23,12 @@ services:
       context: ./todo-app
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - ./todo-app:/app
+      - "5001:3000"
+    environment:
+      VITE_API_URL: "http://localhost:5000"
+      CHOKIDAR_USEPOLLING: true
+    # volumes:
+    #   - ./todo-app:/app
     depends_on:
       - todo-api
     networks:
