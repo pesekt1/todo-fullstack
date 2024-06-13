@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  todo-api:
+    container_name: todo-api
+    build:
+      context: ./todo-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/todoDB"
+    volumes:
+      - ./todo-api:/app
+    depends_on:
+      - mongo
+    networks:
+      - backend
+      - frontend
+
+  todo-app:
+    container_name: todo-app
+    build:
+      context: ./todo-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./todo-app:/app
+    depends_on:
+      - todo-api
+    networks:
+      - frontend
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
