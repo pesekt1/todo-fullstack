@@ -27,8 +27,9 @@ services:
     environment:
       VITE_API_URL: "http://localhost:5000"
       CHOKIDAR_USEPOLLING: true
-    # volumes:
-    #   - ./todo-app:/app
+    volumes:
+      - ./todo-app:/app
+      - /app/node_modules
     depends_on:
       - todo-api
     networks:
