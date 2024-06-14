@@ -26,19 +26,15 @@ spec:
         io.kompose.service: todo-app
     spec:
       containers:
-        - image: todo-app
+        - env:
+          - name: VITE_API_URL
+            value: http://localhost:8080
+          image: pesekt1/todo-app
           name: todo-app
           ports:
             - containerPort: 3000
               hostPort: 3000
               protocol: TCP
           resources: {}
-          volumeMounts:
-            - mountPath: /app
-              name: todo-app-claim0
       restartPolicy: Always
-      volumes:
-        - name: todo-app-claim0
-          persistentVolumeClaim:
-            claimName: todo-app-claim0
 status: {}

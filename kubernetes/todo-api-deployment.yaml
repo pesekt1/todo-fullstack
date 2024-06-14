@@ -29,20 +29,13 @@ spec:
       containers:
         - env:
             - name: MONGO_URI
-              value: mongodb://mongo:27017/todoDB
-          image: todo-api
+              value: mongodb://mongo-service:27017/todoDB
+          image: pesekt1/todo-api
           name: todo-api
           ports:
             - containerPort: 5000
               hostPort: 5000
               protocol: TCP
           resources: {}
-          volumeMounts:
-            - mountPath: /app
-              name: todo-api-claim0
       restartPolicy: Always
-      volumes:
-        - name: todo-api-claim0
-          persistentVolumeClaim:
-            claimName: todo-api-claim0
 status: {}
