@@ -42,6 +42,8 @@ services:
       - mongo-data:/data/db
     networks:
       - backend
+    ports:
+      - "27017:27017"
 
 networks:
   frontend:
