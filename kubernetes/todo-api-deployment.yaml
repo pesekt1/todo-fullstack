@@ -34,8 +34,8 @@ spec:
           name: todo-api
           ports:
             - containerPort: 5000
-              hostPort: 5000
-              protocol: TCP
+              # hostPort: 5000
+              # protocol: TCP
           resources: {}
       restartPolicy: Always
 status: {}

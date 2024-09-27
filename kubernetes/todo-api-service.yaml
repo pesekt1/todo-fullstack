@@ -9,6 +9,7 @@ metadata:
     io.kompose.service: todo-api
   name: todo-api
 spec:
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
